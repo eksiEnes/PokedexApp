@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.pokedexapp.core.BaseFragment
+import com.example.pokedexapp.data.model.response.PokemonList
 import com.example.pokedexapp.databinding.FragmentPokedexBinding
 import com.example.pokedexapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,12 +15,10 @@ class PokedexFragment : BaseFragment<FragmentPokedexBinding>() {
         get() = FragmentPokedexBinding::inflate
 
     private val viewModel: PokedexViewModel by viewModels()
+    private val adapter = PokemonListAdapter()
     override fun setupUi() {
         initListeners()
-
         observeSampleLiveData()
-
-
     }
 
     private fun observeSampleLiveData() {
@@ -39,10 +38,14 @@ class PokedexFragment : BaseFragment<FragmentPokedexBinding>() {
                     TODO()
                 }
                 is Resource.Success -> {
-                    binding.deneme.text = result.body.results.size.toString()
+                    handleSuccessResponse(result)
                 }
             }
         }
+    }
+
+    private fun handleSuccessResponse(pokemonListSuccess: Resource.Success<PokemonList>) {
+
     }
 
     private fun initListeners() {
