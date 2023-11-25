@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pokedexapp.data.model.response.PokemonList
+import com.example.pokedexapp.data.model.uimodel.PokemonItem
 import com.example.pokedexapp.data.repository.PokemonRepository
 import com.example.pokedexapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,8 +16,8 @@ class PokedexViewModel @Inject constructor(
     private val pokemonRepository: PokemonRepository
 ) : ViewModel() {
 
-    private val _pokedexLiveData = MutableLiveData<Resource<PokemonList>>()
-    val pokedexLiveData: LiveData<Resource<PokemonList>> = _pokedexLiveData
+    private val _pokedexLiveData = MutableLiveData<Resource<List<PokemonItem>>>()
+    val pokedexLiveData: LiveData<Resource<List<PokemonItem>>> = _pokedexLiveData
 
     init {
         getPokedex()

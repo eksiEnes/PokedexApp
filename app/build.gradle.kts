@@ -82,6 +82,10 @@ dependencies {
     // OkHttp Logging Interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion")
 
+
+    //Picasso
+    implementation("com.squareup.picasso:picasso:2.8")
+
     val coroutinesVersion = "1.7.1"
     // Coroutines
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
