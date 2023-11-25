@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.pokedexapp.BuildConfig
 import com.google.gson.Gson
 import com.example.pokedexapp.data.NetworkManager
+import com.example.pokedexapp.data.api.PokeApi
 import com.example.pokedexapp.data.api.SampleApi
 import com.example.pokedexapp.utils.Constants
 import dagger.Module
@@ -22,6 +23,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
+
+
 
     @Provides
     @Singleton
@@ -63,4 +67,12 @@ object NetworkModule {
     @Singleton
     fun provideSampleApi(client: Retrofit): SampleApi =
         client.create(SampleApi::class.java)
+
+    @Provides
+    @Singleton
+    fun providePokeApi(client: Retrofit): PokeApi =
+        client.create(PokeApi::class.java)
+
+
+
 }

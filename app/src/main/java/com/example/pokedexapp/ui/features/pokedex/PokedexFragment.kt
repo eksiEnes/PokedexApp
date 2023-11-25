@@ -1,32 +1,53 @@
 package com.example.pokedexapp.ui.features.pokedex
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.pokedexapp.R
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import com.example.pokedexapp.core.BaseFragment
+import com.example.pokedexapp.databinding.FragmentPokedexBinding
+import com.example.pokedexapp.utils.Resource
+import dagger.hilt.android.AndroidEntryPoint
 
-class PokedexFragment : Fragment() {
+@AndroidEntryPoint
+class PokedexFragment : BaseFragment<FragmentPokedexBinding>() {
+    override val bindingInflater: (LayoutInflater) -> FragmentPokedexBinding
+        get() = FragmentPokedexBinding::inflate
 
-    companion object {
-        fun newInstance() = PokedexFragment()
+    private val viewModel: PokedexViewModel by viewModels()
+    override fun setupUi() {
+        initListeners()
+
+        observeSampleLiveData()
+
+
     }
 
-    private lateinit var viewModel: PokedexViewModel
+    private fun observeSampleLiveData() {
+        viewModel.pokedexLiveData.observe(viewLifecycleOwner) { result ->
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_pokedex, container, false)
+            when(result){
+                is Resource.Loading -> {
+                    // TODO Create a loading animation for here
+                    Toast.makeText(
+                        requireContext(),
+                        "Loading animation should be here.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                is Resource.Error -> {
+                    TODO()
+                }
+                is Resource.Success -> {
+                    binding.deneme.text = result.body.results.size.toString()
+                }
+            }
+        }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PokedexViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun initListeners() {
+
     }
+
 
 }
