@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PokedexApp</string>
+    <string name="not_connected_try_again">You are currently not connected to the internet. Please try again later.</string>
+    <string name="general_error_message">An error occured while performing network request.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
