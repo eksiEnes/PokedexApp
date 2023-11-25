@@ -1,7 +1,10 @@
 package com.example.pokedexapp.di
 
 import com.example.pokedexapp.data.NetworkManager
+import com.example.pokedexapp.data.api.PokeApi
 import com.example.pokedexapp.data.api.SampleApi
+import com.example.pokedexapp.data.repository.PokemonRepository
+import com.example.pokedexapp.data.repository.PokemonRepositoryImpl
 import com.example.pokedexapp.data.repository.SampleRepository
 import dagger.Module
 import dagger.Provides
@@ -21,4 +24,11 @@ object ViewModelModule {
         networkManager: NetworkManager
     ): SampleRepository =
         SampleRepository(apiService, networkManager)
+
+    @Provides
+    @ViewModelScoped
+    fun providesPokemonRepository(
+        apiService: PokeApi,
+    ): PokemonRepository =
+        PokemonRepositoryImpl(apiService)
 }
