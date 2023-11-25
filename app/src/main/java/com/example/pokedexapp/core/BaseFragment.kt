@@ -1,13 +1,14 @@
 package com.example.pokedexapp.core
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
-import com.example.pokedexapp.R
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
@@ -56,5 +57,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     protected fun showToastMessage(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
+    open fun navigate(action: NavDirections){
+        findNavController().navigate(action)
     }
 }
