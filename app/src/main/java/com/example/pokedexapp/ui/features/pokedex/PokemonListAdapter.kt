@@ -9,6 +9,14 @@ import com.example.pokedexapp.databinding.ItemPokedexCardBinding
 
 class PokemonListAdapter: RecyclerView.Adapter<PokemonItemViewHolder>() {
 
+    private var onPokedexItemClickListener: ((Int) -> Unit)? = null
+
+    fun setOnPokedexItemClickListener(onPokedexItemClickListener: ((Int) -> Unit)?){
+        this.onPokedexItemClickListener = onPokedexItemClickListener
+    }
+
+
+
     private var itemList = listOf<PokemonItem>()
     @SuppressLint("NotifyDataSetChanged")
     fun setItemList(itemList: List<PokemonItem>){
@@ -17,7 +25,7 @@ class PokemonListAdapter: RecyclerView.Adapter<PokemonItemViewHolder>() {
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonItemViewHolder {
         val binding = ItemPokedexCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PokemonItemViewHolder(binding)
+        return PokemonItemViewHolder(binding, onPokedexItemClickListener)
     }
 
     override fun getItemCount() = itemList.size
@@ -26,4 +34,6 @@ class PokemonListAdapter: RecyclerView.Adapter<PokemonItemViewHolder>() {
         val item = itemList[position]
         holder.bind(item)
     }
+
+    fun getItemPosition(position: Int) = itemList.getOrNull(position)
 }

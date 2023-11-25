@@ -15,13 +15,19 @@ class PokedexFragment : BaseFragment<FragmentPokedexBinding>() {
         get() = FragmentPokedexBinding::inflate
 
     private val viewModel: PokedexViewModel by viewModels()
-    private val adapter = PokemonListAdapter()
+    private val adapter = PokemonListAdapter().apply {
+        setOnPokedexItemClickListener {
+            val id = getItemPosition(it)!!.id
+            val action = PokedexFragmentDirections.actionPokedexFragmentToDetailFragment(id)
+            navigate(action)
+        }
+    }
     override fun setupUi() {
         initListeners()
-        observeSampleLiveData()
+        observeLiveData()
     }
 
-    private fun observeSampleLiveData() {
+    private fun observeLiveData() {
         viewModel.pokedexLiveData.observe(viewLifecycleOwner) { result ->
 
             when(result){
@@ -38,12 +44,6 @@ class PokedexFragment : BaseFragment<FragmentPokedexBinding>() {
                     TODO()
                 }
                 is Resource.Success -> {
-                    // TODO Create a loading animation for here
-                    Toast.makeText(
-                        requireContext(),
-                        "Success",
-                        Toast.LENGTH_LONG
-                    ).show()
                     handleSuccessResponse(result)
                 }
             }
