@@ -13,7 +13,9 @@ class PokemonItemViewHolder(
         with(binding){
             textViewId.text = item.id.toString().idWithTag(3)
             Picasso.get().load(item.imageUrl).into(imageViewPokemon)
-            textViewName.text = item.name
+            textViewName.text = item.name.replaceFirstChar {
+                it.uppercaseChar()
+            }
         }
     }
 
