@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.pokedexapp.core.BaseFragment
-import com.example.pokedexapp.data.model.response.PokemonList
+import com.example.pokedexapp.data.model.uimodel.PokemonItem
 import com.example.pokedexapp.databinding.FragmentPokedexBinding
 import com.example.pokedexapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,15 +38,23 @@ class PokedexFragment : BaseFragment<FragmentPokedexBinding>() {
                     TODO()
                 }
                 is Resource.Success -> {
+                    // TODO Create a loading animation for here
+                    Toast.makeText(
+                        requireContext(),
+                        "Success",
+                        Toast.LENGTH_LONG
+                    ).show()
                     handleSuccessResponse(result)
                 }
             }
         }
     }
 
-    private fun handleSuccessResponse(pokemonListSuccess: Resource.Success<PokemonList>) {
-
+    private fun handleSuccessResponse(result: Resource.Success<List<PokemonItem>>) {
+        binding.recyclerViewPokedex.adapter = adapter
+        adapter.setItemList(result.body)
     }
+
 
     private fun initListeners() {
 

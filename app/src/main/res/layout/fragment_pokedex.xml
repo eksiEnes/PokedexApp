@@ -74,7 +74,10 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/margin_12dp"
             android:layout_marginTop="@dimen/margin_24dp"
-            android:layout_marginEnd="@dimen/margin_12dp" />
+            android:layout_marginEnd="@dimen/margin_12dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3"
+            tools:listitem="@layout/item_pokedex_card"/>
 
     </com.google.android.material.card.MaterialCardView>
 
