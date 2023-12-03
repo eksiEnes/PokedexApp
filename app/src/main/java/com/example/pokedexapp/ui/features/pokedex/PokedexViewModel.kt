@@ -19,6 +19,8 @@ class PokedexViewModel @Inject constructor(
     private val _pokedexLiveData = MutableLiveData<Resource<List<PokemonItem>>>()
     val pokedexLiveData: LiveData<Resource<List<PokemonItem>>> = _pokedexLiveData
 
+    val pokedexSortTypeLiveData = MutableLiveData<String>()
+
     init {
         getPokedex()
     }
